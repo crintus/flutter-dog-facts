@@ -33,29 +33,67 @@ class DogFactWidget extends StatefulWidget {
 }
 
 class _DogFactWidgetState extends State<DogFactWidget> {
-  late Future<Dog> album;
+  late Future<DogFact> dogFacts;
 
   @override
   void initState() {
     super.initState();
-    album = fetchDogFacts();
+    // dogFacts = fetchDogFacts(3);
   }
 
   @override
   Widget build(BuildContext context) {
+    final List<DogWidget> listOfDogFacts = [
+      DogWidget(fact: fetchDogFacts()),
+      DogWidget(fact: fetchDogFacts())
+    ];
+    final PageController pageController = PageController(initialPage: 0);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('D O G   F A C T S'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+      body: PageView.builder(
+        controller: pageController,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, index) {
+          if (index % listOfDogFacts.length == listOfDogFacts.length - 1) {
+            listOfDogFacts.add(DogWidget(fact: fetchDogFacts()));
+          }
+          return listOfDogFacts[index % listOfDogFacts.length];
+        },
+      ),
+    );
+  }
+}
+
+class DogWidget extends StatelessWidget {
+  final Future<DogFact> fact;
+
+  const DogWidget({
+    Key? key,
+    required this.fact,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Card(
         child: Center(
-          child: FutureBuilder<Dog>(
-            future: album,
+          child: FutureBuilder<DogFact>(
+            future: fact,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Text(snapshot.data!.facts[0]);
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    snapshot.data!.fact,
+                    style: Theme.of(context).textTheme.headline5,
+                    textAlign: TextAlign.center,
+                  ),
+                );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
@@ -64,14 +102,6 @@ class _DogFactWidgetState extends State<DogFactWidget> {
             },
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            album = fetchDogFacts();
-          });
-        },
-        child: const Icon(Icons.refresh),
       ),
     );
   }
