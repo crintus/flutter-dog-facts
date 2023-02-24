@@ -8,7 +8,7 @@ part 'dog_fact_state.dart';
 class DogFactBloc extends Bloc<DogFactEvent, DogFactState> {
   final DogFactService _dogFactService;
 
-  DogFactBloc(this._dogFactService) : super(DogFactLoadingState()) {
+  DogFactBloc(this._dogFactService) : super(DogFactInitialState()) {
     on<DogFactLoadApiEvent>((event, emit) async {
       emit(DogFactLoadingState());
       final dogFact = await _dogFactService.getDogFact();

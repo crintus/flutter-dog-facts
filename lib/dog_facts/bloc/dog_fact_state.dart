@@ -4,6 +4,11 @@ abstract class DogFactState extends Equatable {
   const DogFactState();
 }
 
+class DogFactInitialState extends DogFactState {
+  @override
+  List<Object> get props => [];
+}
+
 class DogFactLoadingState extends DogFactState {
   @override
   List<Object> get props => [];

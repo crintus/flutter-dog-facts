@@ -14,13 +14,16 @@ class DogWidget extends StatelessWidget {
     return BlocProvider(
       create: (context) => DogFactBloc(
         RepositoryProvider.of<DogFactService>(context),
-      )..add(DogFactLoadApiEvent()),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Card(
           child: Center(
             child: BlocBuilder<DogFactBloc, DogFactState>(
               builder: (context, state) {
+                if (state is DogFactInitialState) {
+                  BlocProvider.of<DogFactBloc>(context).add(DogFactLoadApiEvent());
+                }
                 if (state is DogFactLoadingState) {
                   return const CircularProgressIndicator();
                 }
