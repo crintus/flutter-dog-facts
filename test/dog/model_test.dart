@@ -1,4 +1,4 @@
-import 'package:dog_facts/dog/model.dart';
+import 'package:dog_facts/dog_facts/services/dog_fact_service.dart';
 import 'package:test/test.dart';
 
 void main() {
