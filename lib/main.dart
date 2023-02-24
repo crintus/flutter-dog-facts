@@ -1,4 +1,5 @@
 import 'package:dog_facts/dog_facts/services/dog_fact_service.dart';
+import 'package:dog_facts/dog_facts/services/unsplash_service.dart';
 import 'package:dog_facts/dog_facts/ui/dog_facts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
       ),
       home: MultiRepositoryProvider(
         providers: [
-          RepositoryProvider(create: (context) => DogFactService())
+          RepositoryProvider(create: (context) => DogFactService()),
+          RepositoryProvider(create: (context) => UnsplashService())
         ],
         child: const DogFactsWidget(),
       ),

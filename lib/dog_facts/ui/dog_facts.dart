@@ -22,12 +22,7 @@ class _DogFactsWidgetState extends State<DogFactsWidget> {
     ];
     final PageController pageController = PageController(initialPage: 0);
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('D O G   F A C T S'),
-      ),
-      body: PageView.builder(
+    return PageView.builder(
         controller: pageController,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
@@ -36,7 +31,6 @@ class _DogFactsWidgetState extends State<DogFactsWidget> {
           }
           return listOfDogFacts[index % listOfDogFacts.length];
         },
-      ),
-    );
+      );
   }
 }

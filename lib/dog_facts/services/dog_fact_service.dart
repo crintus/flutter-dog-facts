@@ -1,23 +1,7 @@
 import 'dart:convert';
 
+import 'package:dog_facts/dog_facts/models/dog_fact.dart';
 import 'package:http/http.dart' as http;
-
-// {"facts":["Dogs in a pack are more likely to chase and hunt than a single dog on its own. Two dogs are enough to form a pack."],"success":true}
-
-class DogFact {
-  final String fact;
-
-  const DogFact({
-    required this.fact,
-  });
-
-  factory DogFact.fromJson(Map<String, dynamic> json) {
-    return DogFact(
-      fact: json['facts'][0],
-    );
-  }
-}
-
 
 class DogFactService {
   Future<DogFact> getDogFact() async {

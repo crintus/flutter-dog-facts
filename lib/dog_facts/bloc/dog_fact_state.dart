@@ -16,9 +16,10 @@ class DogFactLoadingState extends DogFactState {
 
 class DogFactLoadedState extends DogFactState {
   final String fact;
+  final DogImage image;
 
-  const DogFactLoadedState(this.fact);
+  const DogFactLoadedState(this.fact, this.image);
 
   @override
-  List<Object?> get props => [fact];
+  List<Object?> get props => [fact, image];
 }
